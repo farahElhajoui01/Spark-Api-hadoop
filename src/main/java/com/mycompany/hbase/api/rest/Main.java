@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package com.mycompany.hbase.api.rest;
+import static com.oracle.jrockit.jfr.ContentType.Bytes;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Get;
@@ -32,16 +35,15 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
          Configuration config = HBaseConfiguration.create();
-
-      HTable hTable = new HTable(config, "Utilisateur");
+         HTable hTable = new HTable(config, "Utilisateur");
 
       // Instantiating Put class
       // accepts a row name.
       //attention si on determine le row on ecrase la données préinsérées dan cette ligne 
-      String rowname="row2";
+      String rowname="row3";
       String conctact="contact";
       String columnNom="nom";
-      String nom="test6";
+      String nom="test7";
 
       Put p = new Put(rowname.getBytes()); 
 
@@ -60,8 +62,8 @@ public class Main {
       Bytes.toBytes("50000"));*/
       
       // Saving the put Instance to the HTable.
-      hTable.put(p);
-      System.out.println("data inserted");
+     // hTable.put(p);
+      //System.out.println("data inserted");
       
       // closing HTable
       
@@ -106,16 +108,16 @@ public class Main {
 
 
       // Printing the values
-      String name = value.toString();
-      
+      String name = new String(value);
+
       
       
       
       hTable.close();
-        Spark.get("/helloworld", new Route() {
+        Spark.get("/lastName", new Route() {
             @Override
         public Object handle(Request request, Response response) {
-            return  "User "+name;
+            return  "User "+name+"";
         }
             });
     }    }
